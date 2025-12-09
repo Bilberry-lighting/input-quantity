@@ -13,8 +13,8 @@ import 'package:input_quantity/src/form_props.dart';
 import 'build_btn.dart';
 
 /// builder text widget under the InputQty
-typedef MessageBuilder<num> = Widget? Function(
-    num minVal, num maxVal, num? value);
+typedef MessageBuilder<num> =
+    Widget? Function(num minVal, num maxVal, num? value);
 
 enum _OutputType { num, integer, double }
 
@@ -132,11 +132,12 @@ class InputQty extends StatefulWidget {
     Color btnColor1 = Colors.green,
     @Deprecated('Removed') Color btnColor2 = Colors.grey,
     @Deprecated(
-        'Use messageBuilder from QtyDecorationProps to specify message widget'
-        'This feature was deprecated after v2.0.0')
+      'Use messageBuilder from QtyDecorationProps to specify message widget'
+      'This feature was deprecated after v2.0.0',
+    )
     bool showMessageLimit = false,
-  })  : _outputType = _OutputType.num,
-        super(key: key);
+  }) : _outputType = _OutputType.num,
+       super(key: key);
 
   /// Widget to handle quantity input
   ///
@@ -156,8 +157,9 @@ class InputQty extends StatefulWidget {
     this.qtyFormProps = const QtyFormProps(),
     this.isIntrinsicWidth = true,
     @Deprecated(
-        'Use messageBuilder from QtyDecorationProps to specify message widget'
-        'This feature was deprecated after v2.0.0')
+      'Use messageBuilder from QtyDecorationProps to specify message widget'
+      'This feature was deprecated after v2.0.0',
+    )
     bool showMessageLimit = false,
     @Deprecated('Use QtyDecorationProps instead') BoxDecoration? boxDecoration,
     @Deprecated('Use inside QtyDecorationProps instead')
@@ -170,8 +172,8 @@ class InputQty extends StatefulWidget {
     @Deprecated('Use inside QtyDecorationProps instead')
     Color btnColor1 = Colors.green,
     @Deprecated('Removed') Color btnColor2 = Colors.grey,
-  })  : _outputType = _OutputType.double,
-        super(key: key);
+  }) : _outputType = _OutputType.double,
+       super(key: key);
 
   /// Widget to handle quantity input
   ///
@@ -190,8 +192,9 @@ class InputQty extends StatefulWidget {
     this.qtyFormProps = const QtyFormProps(),
     this.isIntrinsicWidth = true,
     @Deprecated(
-        'Use messageBuilder from QtyDecorationProps to specify message widget'
-        'This feature was deprecated after v2.0.0')
+      'Use messageBuilder from QtyDecorationProps to specify message widget'
+      'This feature was deprecated after v2.0.0',
+    )
     bool showMessageLimit = false,
     @Deprecated('Use QtyDecorationProps instead') BoxDecoration? boxDecoration,
     @Deprecated('Use inside QtyDecorationProps instead')
@@ -204,8 +207,8 @@ class InputQty extends StatefulWidget {
     @Deprecated('Use inside QtyDecorationProps instead')
     Color btnColor1 = Colors.green,
     @Deprecated('Removed') Color btnColor2 = Colors.grey,
-  })  : _outputType = _OutputType.integer,
-        super(key: key);
+  }) : _outputType = _OutputType.integer,
+       super(key: key);
 
   @override
   State<InputQty> createState() => _InputQtyState();
@@ -356,20 +359,24 @@ class _InputQtyState extends State<InputQty> {
 
   /// setup decoration widget to textformfield
   InputDecoration decorationProps() {
-    final defaultBorder = widget.decoration.border ??
+    final defaultBorder =
+        widget.decoration.border ??
         OutlineInputBorder(
-            borderSide: widget.decoration.isBordered
-                ? const BorderSide()
-                : BorderSide.none);
+          borderSide: widget.decoration.isBordered
+              ? const BorderSide()
+              : BorderSide.none,
+        );
     return InputDecoration(
       contentPadding: widget.decoration.contentPadding,
-      disabledBorder: widget.decoration.disabledBorder ??
+      disabledBorder:
+          widget.decoration.disabledBorder ??
           defaultBorder.copyWith(
-              borderSide: defaultBorder.borderSide.copyWith(
-                  color: Theme.of(context)
-                      .colorScheme
-                      .onSurface
-                      .withValues(alpha: 0.38))),
+            borderSide: defaultBorder.borderSide.copyWith(
+              color: Theme.of(
+                context,
+              ).colorScheme.onSurface.withValues(alpha: 0.38),
+            ),
+          ),
       enabledBorder: widget.decoration.enabledBorder ?? defaultBorder,
       focusedBorder: widget.decoration.focusedBorder ?? defaultBorder,
       focusedErrorBorder:
@@ -387,181 +394,186 @@ class _InputQtyState extends State<InputQty> {
       hintText: ''.padRight(widget.decoration.width, ' '),
       constraints: widget.decoration.constraints,
       prefixIcon: ValueListenableBuilder<num?>(
-          valueListenable: currentval,
-          builder: (context, value, child) {
-            bool limitBtmState = (value ?? widget.initVal) > widget.minVal;
-            bool limitTopState = (value ?? widget.initVal) < widget.maxVal;
+        valueListenable: currentval,
+        builder: (context, value, child) {
+          bool limitBtmState = (value ?? widget.initVal) > widget.minVal;
+          bool limitTopState = (value ?? widget.initVal) < widget.maxVal;
 
-            switch (widget.decoration.qtyStyle) {
-              case QtyStyle.btnOnLeft:
-                final childbtn = [
-                  BuildBtn(
-                    isPlus: true,
-                    borderShape: widget.decoration.borderShape,
-                    onTap: limitTopState ? plus : null,
-                    qtyStyle: widget.decoration.qtyStyle,
-                    btnColor: widget.decoration.btnColor,
-                    onStart: startTimer,
-                    onEndTime: endTimer,
-                    orientation: widget.decoration.orientation,
-                    child: widget.decoration.plusBtn,
-                  ),
-                  BuildBtn(
-                    isPlus: false,
-                    borderShape: widget.decoration.borderShape,
-                    onTap: limitBtmState ? minus : null,
-                    btnColor: widget.decoration.btnColor,
-                    qtyStyle: widget.decoration.qtyStyle,
-                    onStart: startTimer,
-                    onEndTime: endTimer,
-                    orientation: widget.decoration.orientation,
-                    child: widget.decoration.minusBtn,
-                  ),
-                ];
-                return widget.decoration.orientation ==
-                        ButtonOrientation.horizontal
-                    ? Row(
-                        mainAxisSize: MainAxisSize.min,
-                        children: childbtn.reversed.toList())
-                    : Column(
-                        mainAxisSize: MainAxisSize.min, children: childbtn);
-              case QtyStyle.btnOnRight:
-                return const SizedBox();
-              default:
-                return BuildBtn(
-                  isPlus: false,
-                  qtyStyle: widget.decoration.qtyStyle,
+          switch (widget.decoration.qtyStyle) {
+            case QtyStyle.btnOnLeft:
+              final childbtn = [
+                BuildBtn(
+                  isPlus: true,
                   borderShape: widget.decoration.borderShape,
+                  onTap: limitTopState ? plus : null,
+                  qtyStyle: widget.decoration.qtyStyle,
                   btnColor: widget.decoration.btnColor,
+                  onStart: startTimer,
+                  onEndTime: endTimer,
+                  orientation: widget.decoration.orientation,
+                  child: widget.decoration.plusBtn,
+                ),
+                BuildBtn(
+                  isPlus: false,
+                  borderShape: widget.decoration.borderShape,
                   onTap: limitBtmState ? minus : null,
+                  btnColor: widget.decoration.btnColor,
+                  qtyStyle: widget.decoration.qtyStyle,
                   onStart: startTimer,
                   onEndTime: endTimer,
                   orientation: widget.decoration.orientation,
                   child: widget.decoration.minusBtn,
-                );
-            }
-          }),
+                ),
+              ];
+              return widget.decoration.orientation ==
+                      ButtonOrientation.horizontal
+                  ? Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: childbtn.reversed.toList(),
+                    )
+                  : Column(mainAxisSize: MainAxisSize.min, children: childbtn);
+            case QtyStyle.btnOnRight:
+              return const SizedBox();
+            default:
+              return BuildBtn(
+                isPlus: false,
+                qtyStyle: widget.decoration.qtyStyle,
+                borderShape: widget.decoration.borderShape,
+                btnColor: widget.decoration.btnColor,
+                onTap: limitBtmState ? minus : null,
+                onStart: startTimer,
+                onEndTime: endTimer,
+                orientation: widget.decoration.orientation,
+                child: widget.decoration.minusBtn,
+              );
+          }
+        },
+      ),
       prefixIconConstraints: widget.decoration.minusButtonConstrains,
       suffixIconConstraints: widget.decoration.plusButtonConstrains,
       suffixIcon: ValueListenableBuilder<num?>(
-          valueListenable: currentval,
-          builder: (context, value, child) {
-            bool limitBtmState = (value ?? widget.initVal) > widget.minVal;
-            bool limitTopState = (value ?? widget.initVal) < widget.maxVal;
+        valueListenable: currentval,
+        builder: (context, value, child) {
+          bool limitBtmState = (value ?? widget.initVal) > widget.minVal;
+          bool limitTopState = (value ?? widget.initVal) < widget.maxVal;
 
-            switch (widget.decoration.qtyStyle) {
-              case QtyStyle.btnOnRight:
-                final childbtn = [
-                  BuildBtn(
-                    isPlus: true,
-                    borderShape: widget.decoration.borderShape,
-                    btnColor: widget.decoration.btnColor,
-                    qtyStyle: widget.decoration.qtyStyle,
-                    onStart: startTimer,
-                    orientation: widget.decoration.orientation,
-                    onEndTime: endTimer,
-                    onTap: limitTopState ? plus : null,
-                    child: widget.decoration.plusBtn,
-                  ),
-                  // const SizedBox(height: 2),
-                  BuildBtn(
-                    isPlus: false,
-                    borderShape: widget.decoration.borderShape,
-                    onTap: limitBtmState ? minus : null,
-                    btnColor: widget.decoration.btnColor,
-                    onStart: startTimer,
-                    orientation: widget.decoration.orientation,
-                    onEndTime: endTimer,
-                    qtyStyle: widget.decoration.qtyStyle,
-                    child: widget.decoration.minusBtn,
-                  ),
-                ];
-                return widget.decoration.orientation ==
-                        ButtonOrientation.horizontal
-                    ? Row(
-                        mainAxisSize: MainAxisSize.min,
-                        children: childbtn.reversed.toList())
-                    : Column(
-                        mainAxisSize: MainAxisSize.min, children: childbtn);
-              case QtyStyle.btnOnLeft:
-                return const SizedBox();
-              default:
-                return BuildBtn(
+          switch (widget.decoration.qtyStyle) {
+            case QtyStyle.btnOnRight:
+              final childbtn = [
+                BuildBtn(
                   isPlus: true,
                   borderShape: widget.decoration.borderShape,
+                  btnColor: widget.decoration.btnColor,
+                  qtyStyle: widget.decoration.qtyStyle,
+                  onStart: startTimer,
+                  orientation: widget.decoration.orientation,
+                  onEndTime: endTimer,
                   onTap: limitTopState ? plus : null,
+                  child: widget.decoration.plusBtn,
+                ),
+                // const SizedBox(height: 2),
+                BuildBtn(
+                  isPlus: false,
+                  borderShape: widget.decoration.borderShape,
+                  onTap: limitBtmState ? minus : null,
                   btnColor: widget.decoration.btnColor,
                   onStart: startTimer,
+                  orientation: widget.decoration.orientation,
                   onEndTime: endTimer,
                   qtyStyle: widget.decoration.qtyStyle,
-                  orientation: widget.decoration.orientation,
-                  child: widget.decoration.plusBtn,
-                );
-            }
-          }),
+                  child: widget.decoration.minusBtn,
+                ),
+              ];
+              return widget.decoration.orientation ==
+                      ButtonOrientation.horizontal
+                  ? Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: childbtn.reversed.toList(),
+                    )
+                  : Column(mainAxisSize: MainAxisSize.min, children: childbtn);
+            case QtyStyle.btnOnLeft:
+              return const SizedBox();
+            default:
+              return BuildBtn(
+                isPlus: true,
+                borderShape: widget.decoration.borderShape,
+                onTap: limitTopState ? plus : null,
+                btnColor: widget.decoration.btnColor,
+                onStart: startTimer,
+                onEndTime: endTimer,
+                qtyStyle: widget.decoration.qtyStyle,
+                orientation: widget.decoration.orientation,
+                child: widget.decoration.plusBtn,
+              );
+          }
+        },
+      ),
     );
   }
 
   /// widget textformfield
   Widget _buildtextfield() => TextFormField(
-        decoration: decorationProps(),
-        onTapOutside: (event) {
-          checkValue();
-          FocusManager.instance.primaryFocus?.unfocus();
-        },
-        controller: _valCtrl,
-        readOnly: !widget.qtyFormProps.enableTyping,
-        enableInteractiveSelection: widget.qtyFormProps.enableTyping,
-        autovalidateMode: AutovalidateMode.onUserInteraction,
-        validator: (val) => widget.validator?.call(num.tryParse(val ?? '')),
-        textAlign: widget.qtyFormProps.textAlign,
-        textAlignVertical: widget.qtyFormProps.textAlignVertical,
-        style: widget.qtyFormProps.style,
-        obscureText: widget.qtyFormProps.obscureText,
-        obscuringCharacter: widget.qtyFormProps.obscuringCharacter,
-        cursorColor: widget.qtyFormProps.cursorColor,
-        cursorHeight: widget.qtyFormProps.cursorHeight,
-        cursorOpacityAnimates: widget.qtyFormProps.cursorOpacityAnimates,
-        cursorRadius: widget.qtyFormProps.cursorRadius,
-        cursorWidth: widget.qtyFormProps.cursorWidth,
-        keyboardType: widget.qtyFormProps.keyboardType,
-        enabled: widget.qtyFormProps.enabled,
-        showCursor: widget.qtyFormProps.showCursor,
-        inputFormatters: [
-          FilteringTextInputFormatter.allow(RegExp(r'^-?\d*\.?\d*'))
-        ],
-        onChanged: (String strVal) {
-          if (widget._outputType == _OutputType.integer &&
-              strVal.contains('.')) {
-            _valCtrl.text = '${currentval.value}';
-            _valCtrl.selection = TextSelection.fromPosition(
-                TextPosition(offset: _valCtrl.text.length));
-            return;
-          }
-          // avoid parsing value
-          if (strVal.isEmpty || strVal == '-') return;
-          num? temp = num.tryParse(strVal);
-          if (temp == null) {
-            _valCtrl.text = '${currentval.value}';
-            _valCtrl.selection = TextSelection.fromPosition(
-                TextPosition(offset: _valCtrl.text.length));
-            return;
-          }
-          currentval.value = temp;
-          temp = _convertOutputType(temp);
-        },
-        onFieldSubmitted: (_) => checkValue(),
-      );
+    decoration: decorationProps(),
+    onTapOutside: (event) {
+      checkValue();
+      FocusManager.instance.primaryFocus?.unfocus();
+    },
+    controller: _valCtrl,
+    readOnly: !widget.qtyFormProps.enableTyping,
+    enableInteractiveSelection: widget.qtyFormProps.enableTyping,
+    autovalidateMode: AutovalidateMode.onUserInteraction,
+    validator: (val) => widget.validator?.call(num.tryParse(val ?? '')),
+    textAlign: widget.qtyFormProps.textAlign,
+    textAlignVertical: widget.qtyFormProps.textAlignVertical,
+    style: widget.qtyFormProps.style,
+    obscureText: widget.qtyFormProps.obscureText,
+    obscuringCharacter: widget.qtyFormProps.obscuringCharacter,
+    cursorColor: widget.qtyFormProps.cursorColor,
+    cursorHeight: widget.qtyFormProps.cursorHeight,
+    cursorOpacityAnimates: widget.qtyFormProps.cursorOpacityAnimates,
+    cursorRadius: widget.qtyFormProps.cursorRadius,
+    cursorWidth: widget.qtyFormProps.cursorWidth,
+    keyboardType: widget.qtyFormProps.keyboardType,
+    enabled: widget.qtyFormProps.enabled,
+    showCursor: widget.qtyFormProps.showCursor,
+    inputFormatters: [
+      FilteringTextInputFormatter.allow(RegExp(r'^-?\d*\.?\d*')),
+    ],
+    onChanged: (String strVal) {
+      if (widget._outputType == _OutputType.integer && strVal.contains('.')) {
+        _valCtrl.text = '${currentval.value}';
+        _valCtrl.selection = TextSelection.fromPosition(
+          TextPosition(offset: _valCtrl.text.length),
+        );
+        return;
+      }
+      // avoid parsing value
+      if (strVal.isEmpty || strVal == '-') return;
+      num? temp = num.tryParse(strVal);
+      if (temp == null) {
+        _valCtrl.text = '${currentval.value}';
+        _valCtrl.selection = TextSelection.fromPosition(
+          TextPosition(offset: _valCtrl.text.length),
+        );
+        return;
+      }
+      currentval.value = temp;
+      temp = _convertOutputType(temp);
+    },
+    textInputAction: widget.qtyFormProps.textInputAction,
+    onFieldSubmitted: (_) => checkValue(),
+  );
 
   /// build message widget
   Widget? _buildMessageWidget() => ValueListenableBuilder<num?>(
-      valueListenable: currentval,
-      builder: (context, val, __) {
-        final errorText = widget.validator?.call(val);
-        if (errorText != null) return const SizedBox();
-        return widget.messageBuilder?.call(widget.maxVal, widget.minVal, val) ??
-            _defaultMessageBuilder(widget.minVal, widget.maxVal, val);
-      });
+    valueListenable: currentval,
+    builder: (context, val, __) {
+      final errorText = widget.validator?.call(val);
+      if (errorText != null) return const SizedBox();
+      return widget.messageBuilder?.call(widget.maxVal, widget.minVal, val) ??
+          _defaultMessageBuilder(widget.minVal, widget.maxVal, val);
+    },
+  );
 
   @override
   Widget build(BuildContext context) {

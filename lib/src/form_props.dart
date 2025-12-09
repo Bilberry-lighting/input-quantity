@@ -49,6 +49,9 @@ class QtyFormProps {
   /// override text controller of textfield
   final TextEditingController? controller;
 
+  /// override default input action
+  final TextInputAction? textInputAction;
+
   const QtyFormProps({
     this.textAlign = TextAlign.center,
     this.textAlignVertical = TextAlignVertical.center,
@@ -65,5 +68,6 @@ class QtyFormProps {
     this.enabled,
     this.showCursor,
     this.controller,
+    this.textInputAction,
   });
 }
