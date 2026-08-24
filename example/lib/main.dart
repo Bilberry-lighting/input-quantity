@@ -1,6 +1,6 @@
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
+
 import 'package:input_quantity/input_quantity.dart';
-// import 'package:input_quantity/input_quantity.dart';
 
 void main() => runApp(const MyApp());
 
@@ -11,9 +11,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Input Quantity Example',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
+      theme: ThemeData(primarySwatch: Colors.blue),
       home: const MyHomePage(title: 'Input Quantity'),
     );
   }
@@ -76,15 +74,18 @@ class _MyHomePageState extends State<MyHomePage> {
                           Icons.flight_land_rounded,
                           color: Colors.purple,
                         ),
-                        plusBtn:
-                            Icon(Icons.flight_takeoff, color: Colors.indigo),
+                        plusBtn: Icon(
+                          Icons.flight_takeoff,
+                          color: Colors.indigo,
+                        ),
                       ),
                     ),
                     SizedBox(width: 30),
                     Expanded(
                       child: Text(
-                          "- Output: int,double, num\n- initVal, maxVal, minVal, steps \n- Custom: icon,decoration,etc"),
-                    )
+                        "- Output: int,double, num\n- initVal, maxVal, minVal, steps \n- Custom: icon,decoration,etc",
+                      ),
+                    ),
                   ],
                 ),
                 const Divider(height: 30),
@@ -92,14 +93,18 @@ class _MyHomePageState extends State<MyHomePage> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     InputQty(
-                        decoration: QtyDecorationProps(
-                            isBordered: false,
-                            borderShape: BorderShapeBtn.circle,
-                            width: 12)),
+                      decoration: QtyDecorationProps(
+                        isBordered: false,
+                        borderShape: BorderShapeBtn.circle,
+                        width: 12,
+                      ),
+                    ),
                     SizedBox(width: 30),
                     Expanded(
-                        child: Text(
-                            "- Ontap\n- Longpress \n- Typing input Manually"))
+                      child: Text(
+                        "- Ontap\n- Longpress \n- Typing input Manually",
+                      ),
+                    ),
                   ],
                 ),
                 const Divider(),
@@ -107,22 +112,18 @@ class _MyHomePageState extends State<MyHomePage> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     InputQty(
-                      qtyFormProps: QtyFormProps(
-                        controller: _controller,
-                      ),
+                      qtyFormProps: QtyFormProps(controller: _controller),
                     ),
                     const SizedBox(width: 30),
                     const Expanded(
                       child: Text("use controller to get value (string)"),
-                    )
+                    ),
                   ],
                 ),
                 const Divider(height: 50),
                 InputQty(
                   maxVal: 100,
-                  qtyFormProps: QtyFormProps(
-                    controller: _controller,
-                  ),
+                  qtyFormProps: QtyFormProps(controller: _controller),
                 ),
                 Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -131,8 +132,9 @@ class _MyHomePageState extends State<MyHomePage> {
                     Column(
                       children: [
                         const Padding(
-                            padding: EdgeInsets.all(8.0),
-                            child: Text('Use validator')),
+                          padding: EdgeInsets.all(8.0),
+                          child: Text('Use validator'),
+                        ),
                         InputQty(
                           initVal: 0,
                           steps: 10,
@@ -150,17 +152,16 @@ class _MyHomePageState extends State<MyHomePage> {
                       ],
                     ),
                     const Center(
-                        child: Text(
-                      "OR",
-                      style: TextStyle(fontSize: 20, color: Colors.black),
-                    )),
+                      child: Text(
+                        "OR",
+                        style: TextStyle(fontSize: 20, color: Colors.black),
+                      ),
+                    ),
                     Column(
                       children: [
                         const Padding(
                           padding: EdgeInsets.only(bottom: 8.0),
-                          child: Text(
-                            'Message builder',
-                          ),
+                          child: Text('Message builder'),
                         ),
                         InputQty(
                           initVal: 0,
@@ -182,8 +183,10 @@ class _MyHomePageState extends State<MyHomePage> {
                                 textAlign: TextAlign.center,
                               );
                             } else {
-                              return Text("Value : $value",
-                                  textAlign: TextAlign.center);
+                              return Text(
+                                "Value : $value",
+                                textAlign: TextAlign.center,
+                              );
                             }
                           },
                         ),
@@ -199,30 +202,23 @@ class _MyHomePageState extends State<MyHomePage> {
                     Column(
                       children: [
                         Padding(
-                            padding: EdgeInsets.all(8.0),
-                            child: Text('integer')),
-                        InputQty.int(
-                          initVal: 0,
-                          steps: 10,
-                          minVal: -100,
+                          padding: EdgeInsets.all(8.0),
+                          child: Text('integer'),
                         ),
+                        InputQty.int(initVal: 0, steps: 10, minVal: -100),
                       ],
                     ),
                     Center(
-                        child: Text(
-                      "OR",
-                      style: TextStyle(
-                        fontSize: 20,
-                        color: Colors.black,
+                      child: Text(
+                        "OR",
+                        style: TextStyle(fontSize: 20, color: Colors.black),
                       ),
-                    )),
+                    ),
                     Column(
                       children: [
                         Padding(
                           padding: EdgeInsets.all(8.0),
-                          child: Text(
-                            'double',
-                          ),
+                          child: Text('double'),
                         ),
                         InputQty(
                           // decimalPlaces: 4,
@@ -246,23 +242,29 @@ class _MyHomePageState extends State<MyHomePage> {
                     isIntrinsicWidth: false,
                     qtyFormProps: const QtyFormProps(),
                     decoration: QtyDecorationProps(
-                        qtyStyle: QtyStyle.btnOnRight,
-                        border: OutlineInputBorder(
-                            borderSide:
-                                const BorderSide(width: 5, color: Colors.green),
-                            borderRadius: BorderRadius.circular(6)),
-                        minusBtn: const Padding(
-                          padding: EdgeInsets.symmetric(horizontal: 8.0),
-                          child: Icon(Icons.keyboard_arrow_down_sharp,
-                              color: Colors.blue),
+                      qtyStyle: QtyStyle.btnOnRight,
+                      border: OutlineInputBorder(
+                        borderSide: const BorderSide(
+                          width: 5,
+                          color: Colors.green,
                         ),
-                        plusBtn: const Padding(
-                          padding: EdgeInsets.symmetric(horizontal: 8.0),
-                          child: Icon(
-                            Icons.keyboard_arrow_up,
-                            color: Colors.blue,
-                          ),
-                        )),
+                        borderRadius: BorderRadius.circular(6),
+                      ),
+                      minusBtn: const Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 8.0),
+                        child: Icon(
+                          Icons.keyboard_arrow_down_sharp,
+                          color: Colors.blue,
+                        ),
+                      ),
+                      plusBtn: const Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 8.0),
+                        child: Icon(
+                          Icons.keyboard_arrow_up,
+                          color: Colors.blue,
+                        ),
+                      ),
+                    ),
                     onQtyChanged: (val) {},
                   ),
                 ),
@@ -274,7 +276,6 @@ class _MyHomePageState extends State<MyHomePage> {
                 //     },
                 //     child: const Text("validate")),
                 // const Divider(),
-
                 const Text("Style options:"),
                 const SizedBox(height: 12),
 
@@ -283,27 +284,32 @@ class _MyHomePageState extends State<MyHomePage> {
                   children: [
                     InputQty.int(
                       messageBuilder: (minVal, maxVal, value) => const Text(
-                          "Button on Left",
-                          textAlign: TextAlign.center),
+                        "Button on Left",
+                        textAlign: TextAlign.center,
+                      ),
                       decoration: const QtyDecorationProps(
-                          qtyStyle: QtyStyle.btnOnLeft,
-                          width: 12,
-                          fillColor: Colors.black12,
-                          isBordered: false,
-                          borderShape: BorderShapeBtn.square),
+                        qtyStyle: QtyStyle.btnOnLeft,
+                        width: 12,
+                        fillColor: Colors.black12,
+                        isBordered: false,
+                        borderShape: BorderShapeBtn.square,
+                      ),
                     ),
                     InputQty.int(
                       messageBuilder: (minVal, maxVal, value) => const Text(
-                          "Button on Right",
-                          textAlign: TextAlign.center),
-                      qtyFormProps:
-                          const QtyFormProps(cursorColor: Colors.amber),
+                        "Button on Right",
+                        textAlign: TextAlign.center,
+                      ),
+                      qtyFormProps: const QtyFormProps(
+                        cursorColor: Colors.amber,
+                      ),
                       decoration: const QtyDecorationProps(
-                          qtyStyle: QtyStyle.btnOnRight,
-                          width: 12,
-                          fillColor: Colors.black12,
-                          isBordered: false,
-                          borderShape: BorderShapeBtn.square),
+                        qtyStyle: QtyStyle.btnOnRight,
+                        width: 12,
+                        fillColor: Colors.black12,
+                        isBordered: false,
+                        borderShape: BorderShapeBtn.square,
+                      ),
                     ),
                   ],
                 ),
@@ -312,11 +318,12 @@ class _MyHomePageState extends State<MyHomePage> {
                   messageBuilder: (minVal, maxVal, value) =>
                       const Text("Classic", textAlign: TextAlign.center),
                   decoration: const QtyDecorationProps(
-                      qtyStyle: QtyStyle.classic,
-                      width: 12,
-                      fillColor: Colors.black12,
-                      isBordered: false,
-                      borderShape: BorderShapeBtn.none),
+                    qtyStyle: QtyStyle.classic,
+                    width: 12,
+                    fillColor: Colors.black12,
+                    isBordered: false,
+                    borderShape: BorderShapeBtn.none,
+                  ),
                 ),
                 const SizedBox(height: 30),
                 Row(
@@ -324,29 +331,35 @@ class _MyHomePageState extends State<MyHomePage> {
                   children: [
                     InputQty.int(
                       messageBuilder: (minVal, maxVal, value) => const Text(
-                          "Button on Right Horizontal",
-                          textAlign: TextAlign.center),
-                      qtyFormProps:
-                          const QtyFormProps(cursorColor: Colors.amber),
+                        "Button on Right Horizontal",
+                        textAlign: TextAlign.center,
+                      ),
+                      qtyFormProps: const QtyFormProps(
+                        cursorColor: Colors.amber,
+                      ),
                       decoration: const QtyDecorationProps(
-                          qtyStyle: QtyStyle.btnOnLeft,
-                          width: 12,
-                          orientation: ButtonOrientation.horizontal,
-                          isBordered: false,
-                          borderShape: BorderShapeBtn.square),
+                        qtyStyle: QtyStyle.btnOnLeft,
+                        width: 12,
+                        orientation: ButtonOrientation.horizontal,
+                        isBordered: false,
+                        borderShape: BorderShapeBtn.square,
+                      ),
                     ),
                     InputQty.int(
                       messageBuilder: (minVal, maxVal, value) => const Text(
-                          "Button on Right Horizontal",
-                          textAlign: TextAlign.center),
-                      qtyFormProps:
-                          const QtyFormProps(cursorColor: Colors.amber),
+                        "Button on Right Horizontal",
+                        textAlign: TextAlign.center,
+                      ),
+                      qtyFormProps: const QtyFormProps(
+                        cursorColor: Colors.amber,
+                      ),
                       decoration: const QtyDecorationProps(
-                          qtyStyle: QtyStyle.btnOnRight,
-                          width: 12,
-                          orientation: ButtonOrientation.horizontal,
-                          isBordered: false,
-                          borderShape: BorderShapeBtn.square),
+                        qtyStyle: QtyStyle.btnOnRight,
+                        width: 12,
+                        orientation: ButtonOrientation.horizontal,
+                        isBordered: false,
+                        borderShape: BorderShapeBtn.square,
+                      ),
                     ),
                   ],
                 ),

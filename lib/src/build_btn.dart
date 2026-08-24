@@ -1,7 +1,9 @@
 import 'dart:async';
 
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
+
 import 'package:input_quantity/src/constant.dart';
+
 import '../input_quantity.dart';
 
 /// default
@@ -77,11 +79,13 @@ class BuildBtn extends StatelessWidget {
                   style: qtyStyle,
                 ),
         ),
-        child: child ??
+        child:
+            child ??
             Padding(
               padding: EdgeInsets.symmetric(
                 horizontal: isSqborder ? 8.0 : 2.0,
-                vertical: (orientation ?? ButtonOrientation.vertical) ==
+                vertical:
+                    (orientation ?? ButtonOrientation.vertical) ==
                         ButtonOrientation.vertical
                     ? 0
                     : 4,
@@ -97,16 +101,18 @@ class BuildBtn extends StatelessWidget {
   }
 }
 
-BorderRadius setupBorderRadiusDefault(
-    {required ButtonOrientation orientation,
-    required bool isPlus,
-    QtyStyle? style}) {
+BorderRadius setupBorderRadiusDefault({
+  required ButtonOrientation orientation,
+  required bool isPlus,
+  QtyStyle? style,
+}) {
   if (orientation == ButtonOrientation.horizontal) {
     return BorderRadius.only(
-        topLeft: isPlus ? Radius.zero : cRad,
-        bottomLeft: isPlus ? Radius.zero : cRad,
-        topRight: isPlus ? cRad : Radius.zero,
-        bottomRight: isPlus ? cRad : Radius.zero);
+      topLeft: isPlus ? Radius.zero : cRad,
+      bottomLeft: isPlus ? Radius.zero : cRad,
+      topRight: isPlus ? cRad : Radius.zero,
+      bottomRight: isPlus ? cRad : Radius.zero,
+    );
   } else {
     if (style == QtyStyle.btnOnRight) {
       return BorderRadius.only(
